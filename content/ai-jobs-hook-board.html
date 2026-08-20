@@ -1,0 +1,1222 @@
+<title>AI Jobs Hook Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+
+<style>
+:root{
+  --ground:#E8EAE7;
+  --surface:#F5F6F3;
+  --surface-2:#DEE3DE;
+  --ink:#16262A;
+  --ink-2:#3C5156;
+  --muted:#6C8085;
+  --line:#C8D0CB;
+  --line-soft:#D9DFDA;
+  --accent:#C13B1E;
+  --accent-ink:#8E2B14;
+  --accent-soft:rgba(193,59,30,.10);
+  --shadow:0 1px 0 rgba(22,38,42,.06), 0 12px 28px -20px rgba(22,38,42,.45);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E1719;
+    --surface:#152124;
+    --surface-2:#1C2C30;
+    --ink:#DFE7E4;
+    --ink-2:#B0C2BF;
+    --muted:#7D9490;
+    --line:#26383C;
+    --line-soft:#1F2F33;
+    --accent:#F1603F;
+    --accent-ink:#FF8163;
+    --accent-soft:rgba(241,96,63,.14);
+    --shadow:0 1px 0 rgba(0,0,0,.3), 0 16px 32px -24px rgba(0,0,0,.9);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E1719;
+  --surface:#152124;
+  --surface-2:#1C2C30;
+  --ink:#DFE7E4;
+  --ink-2:#B0C2BF;
+  --muted:#7D9490;
+  --line:#26383C;
+  --line-soft:#1F2F33;
+  --accent:#F1603F;
+  --accent-ink:#FF8163;
+  --accent-soft:rgba(241,96,63,.14);
+  --shadow:0 1px 0 rgba(0,0,0,.3), 0 16px 32px -24px rgba(0,0,0,.9);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"Public Sans","Helvetica Neue",Arial,sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  padding:0 20px 96px;
+}
+.wrap{max-width:1060px;margin:0 auto}
+
+h1,h2,h3,h4{font-family:"Bricolage Grotesque","Public Sans",sans-serif;font-weight:800;text-wrap:balance;line-height:1.05;letter-spacing:-.02em;margin:0}
+p{margin:0}
+a{color:var(--accent-ink);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;
+}
+
+/* ---------- masthead ---------- */
+.masthead{padding:72px 0 40px;border-bottom:2px solid var(--ink);display:flex;flex-direction:column;gap:24px}
+.tally{display:flex;align-items:center;gap:10px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.masthead h1{font-size:clamp(38px,7.2vw,74px)}
+.masthead .deck{font-size:clamp(17px,2.2vw,20px);color:var(--ink-2);max-width:60ch}
+.brief{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);margin-top:8px;
+}
+.brief div{background:var(--ground);padding:14px 16px;display:flex;flex-direction:column;gap:5px}
+.brief b{font-size:14px;font-weight:600;letter-spacing:-.01em}
+
+/* ---------- sections ---------- */
+section{padding-top:56px}
+.sec-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+.sec-head h2{font-size:clamp(24px,3.6vw,34px)}
+.sec-note{color:var(--ink-2);max-width:66ch;margin-bottom:24px}
+
+/* ---------- first five ---------- */
+.five{display:grid;gap:14px}
+.pick{
+  display:grid;grid-template-columns:64px 1fr;gap:20px;
+  background:var(--surface);border:1px solid var(--line);padding:20px 22px;box-shadow:var(--shadow);
+}
+.pick .rank{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:40px;line-height:.9;color:var(--accent);font-variant-numeric:tabular-nums}
+.pick h3{font-size:19px;margin-bottom:6px}
+.pick p{color:var(--ink-2);font-size:15px}
+.pick .ref{margin-top:8px;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- index table ---------- */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:660px;font-size:14.5px}
+th{
+  text-align:left;font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  padding:12px 14px;border-bottom:1px solid var(--line);white-space:nowrap;
+}
+td{padding:11px 14px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.num,td.sc{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;color:var(--muted)}
+td.sc{color:var(--ink);font-weight:600}
+td.ttl a{color:var(--ink);text-decoration:none;font-weight:500}
+td.ttl a:hover{color:var(--accent-ink);text-decoration:underline}
+
+/* ---------- filter ---------- */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 26px;position:sticky;top:0;z-index:5;background:var(--ground);padding:14px 0;border-bottom:1px solid var(--line-soft)}
+.filters button{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  background:transparent;color:var(--muted);border:1px solid var(--line);
+  padding:7px 13px;cursor:pointer;transition:color .15s,border-color .15s,background .15s;
+}
+.filters button:hover{color:var(--ink)}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+
+/* ---------- concept card ---------- */
+.card{
+  background:var(--surface);border:1px solid var(--line);
+  margin-bottom:22px;box-shadow:var(--shadow);scroll-margin-top:72px;
+}
+.card-top{display:grid;grid-template-columns:1fr;gap:18px;padding:24px 26px 20px;border-bottom:1px solid var(--line-soft)}
+.idline{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.idnum{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;color:var(--accent);letter-spacing:.1em}
+.chip{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--line);padding:3px 8px;color:var(--ink-2);white-space:nowrap;
+}
+.chip.plat{border-color:var(--ink-2);color:var(--ink);font-weight:600}
+.card h3{font-size:clamp(20px,2.8vw,26px)}
+.hookbox{
+  background:var(--accent-soft);border-left:3px solid var(--accent);
+  padding:14px 18px;font-size:17px;line-height:1.5;
+}
+.hookbox .lbl{display:block;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:6px}
+.hookbox em{font-style:italic;color:var(--ink-2)}
+
+.body{display:grid;grid-template-columns:190px 1fr;gap:0}
+@media (max-width:760px){ .body{grid-template-columns:1fr} }
+.rail{
+  border-right:1px solid var(--line-soft);padding:22px 20px;display:flex;flex-direction:column;gap:18px;
+  background:var(--surface-2);
+}
+@media (max-width:760px){ .rail{border-right:0;border-bottom:1px solid var(--line-soft)} }
+.rail .item{display:flex;flex-direction:column;gap:3px}
+.rail .item span{font-size:14px;font-weight:500;line-height:1.35}
+.meter{display:flex;gap:2px;margin-top:5px}
+.meter i{flex:1;height:8px;background:var(--line);display:block}
+.meter i.on{background:var(--accent)}
+.score{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:600;font-variant-numeric:tabular-nums}
+.score small{font-size:12px;color:var(--muted);font-weight:400}
+
+.content{padding:22px 26px 26px;display:flex;flex-direction:column;gap:22px;min-width:0}
+.block{display:flex;flex-direction:column;gap:8px}
+.block h4{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.block p{font-size:15.5px;color:var(--ink-2);max-width:68ch}
+.block ol,.block ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:15px;color:var(--ink-2);max-width:68ch}
+.block li::marker{color:var(--muted);font-family:"IBM Plex Mono",monospace;font-size:12px}
+
+/* signature: the six-beat strip */
+.strip{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line);overflow:hidden}
+@media (max-width:900px){ .strip{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:520px){ .strip{grid-template-columns:1fr} }
+.beat{background:var(--surface);padding:11px 12px 13px;display:flex;flex-direction:column;gap:5px;min-width:0}
+.beat .tc{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.05em}
+.beat .nm{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:12.5px;letter-spacing:.01em;text-transform:uppercase}
+.beat .tx{font-size:13px;line-height:1.4;color:var(--ink-2)}
+.beat.hot{background:var(--accent-soft)}
+.beat.hot .nm{color:var(--accent-ink)}
+
+.osd{display:flex;flex-wrap:wrap;gap:7px}
+.osd span{
+  font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:13px;letter-spacing:.01em;
+  background:var(--ink);color:var(--ground);padding:5px 10px;line-height:1.3;
+}
+.risk{border-left:3px solid var(--muted);padding-left:14px}
+.risk h4{color:var(--muted)}
+.payoff{border-left:3px solid var(--accent);padding-left:14px}
+.payoff h4{color:var(--accent-ink)}
+.cta-line{font-size:15.5px;color:var(--ink);font-weight:500;max-width:68ch}
+.cta-line em{font-style:normal;color:var(--muted);font-weight:400}
+
+footer{margin-top:64px;padding-top:26px;border-top:2px solid var(--ink);color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:10px;max-width:72ch}
+footer strong{color:var(--ink)}
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <div class="tally"><span class="dot"></span><span class="eyebrow">Short-form concept board · Remote AI work</span></div>
+  <h1>AI Jobs Hook Board</h1>
+  <p class="deck">Twenty production-ready short-form concepts that pull in people who already use AI daily and show them the paid work they're closest to. Each one is mapped beat by beat, with the drop-off point named before you shoot it.</p>
+  <div class="brief">
+    <div><span class="eyebrow">Platforms</span><b>YouTube Shorts · LinkedIn · Instagram Reels</b></div>
+    <div><span class="eyebrow">Audience</span><b>Daily AI users who qualify for open roles but don't know it</b></div>
+    <div><span class="eyebrow">Goal mix</span><b>Watch time → comments → follows</b></div>
+    <div><span class="eyebrow">Lengths</span><b>15–30s · 30–60s · 60–90s</b></div>
+  </div>
+</header>
+
+<section id="first">
+  <div class="sec-head"><h2>Shoot these five first</h2><span class="eyebrow">Ranked by comment-per-view, not just reach</span></div>
+  <p class="sec-note">These five carry the account's opening month. Four of them are built so the comment section does the algorithmic work: viewers reply with something about themselves, you reply back, and the thread keeps the video alive for days.</p>
+  <div class="five" id="five"></div>
+</section>
+
+<section id="index">
+  <div class="sec-head"><h2>All twenty at a glance</h2></div>
+  <p class="sec-note">Platform is the one I'd shoot it for first, not the only place it works. Score is virality potential out of 10, weighing watch time, shares, comments and repeat viewing together.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>#</th><th>Concept</th><th>Platform</th><th>Length</th><th>Style</th><th>Driver</th><th>Score</th></tr></thead>
+    <tbody id="idx"></tbody>
+  </table></div>
+</section>
+
+<section id="concepts">
+  <div class="sec-head"><h2>The concepts</h2></div>
+  <p class="sec-note">Every card gives you the exact opening line, the six-beat retention map with timecodes, what to point the camera at, the overlays, the interrupts, the payoff, and the moment most likely to lose people.</p>
+  <div class="filters" role="group" aria-label="Filter concepts by platform">
+    <button type="button" data-f="all" aria-pressed="true">All 20</button>
+    <button type="button" data-f="YouTube Shorts" aria-pressed="false">YouTube Shorts</button>
+    <button type="button" data-f="LinkedIn" aria-pressed="false">LinkedIn</button>
+    <button type="button" data-f="Instagram Reels" aria-pressed="false">Instagram Reels</button>
+  </div>
+  <div id="cards"></div>
+</section>
+
+<footer>
+  <p><strong>Two rules that protect the account.</strong> Every rate, applicant count and payout in these scripts has to come from a live screen recording you took yourself on the day, not from memory and not from another creator's video — the screen recording is also what makes the video work, so this costs you nothing and buys you everything.</p>
+  <p>Second: never fake the dashboard, the rejection email or the client reply. This niche runs on proof, and one fabricated screenshot is the end of the channel. If a number is embarrassing, use it — the honest version consistently outperforms the polished one here.</p>
+</footer>
+
+</div>
+
+<script>
+const C = [
+{
+ n:1, title:"The prompt that costs you the job",
+ plat:"YouTube Shorts", len:"30–60s", style:"Educational", driver:"Recognition → aspiration",
+ score:9, scoreWhy:`Every viewer sees their own ChatGPT habit on screen in the first second, and the payoff is a concrete list they can act on tonight. Loses a point because the value beat is a screen recording, which caps shareability compared to a face-led take.`,
+ hook:`Screen recording is already mid-motion — a plain ChatGPT prompt sitting in the box. Voice, flat and certain: "This prompt is exactly why you don't get hired for AI work."`,
+ idea:`The gap between using AI daily and being paid for it isn't prompting — it's judgement. Paid AI work is grading output against written criteria. The video shows a normal prompt rewritten as a trainer-grade prompt with a four-line rubric attached, then names the roles that pay for precisely that habit.`,
+ beats:[
+  ["0:00–0:02","Hook",`Plain prompt on screen, blunt accusation over it.`],
+  ["0:02–0:07","Curiosity",`"Nobody is paying for prompts. They pay for the part 99% of users skip."`],
+  ["0:07–0:22","Value",`Type the four-line rubric live at 2× speed: accuracy, refusal handling, tone, sourcing.`],
+  ["0:22–0:26","Interrupt",`Hard cut off the screen to your face, tighter framing, keyboard sound gone.`],
+  ["0:26–0:36","Payoff",`Three job titles this qualifies you for, plus where they're listed, plus the fact that the screening test is this exact task.`],
+  ["0:36–0:42","CTA",`Keyword comment for the rubric template.`]
+ ],
+ talk:[
+  `Most people ask AI to do a thing. Paid work is deciding whether the thing is any good.`,
+  `Show the plain prompt. Don't mock it — say it's fine for personal use, and that's the trap.`,
+  `Rewrite it live: same request, plus four graded criteria underneath.`,
+  `Run it once and grade the output out loud in one sentence. Speed matters here.`,
+  `Only now name the roles: model evaluator, AI trainer, evals contractor.`,
+  `Say where they're posted, and that applications are work-sample based, so no referral is needed.`,
+  `Close: the screening test you'll be sent is the thing you just watched.`
+ ],
+ vis:[
+  `Full-bleed screen recording, cursor magnified, editor zoomed to ~130% so text is legible on a phone.`,
+  `Split-screen wipe at 0:12: plain prompt left, rubric version right, dividing line animates in.`,
+  `Hard cut to a face shot at 0:22, shot tighter than your usual framing.`,
+  `End frame: three job titles stacked on a solid ground, held still for 2 seconds so people can screenshot.`
+ ],
+ osd:["Prompting ≠ paid AI work","They pay for judgement","Rubric > prompt","This IS the screening test"],
+ ints:[
+  `0:22 — cut from screen to face and drop the keyboard sound entirely; the silence reads as a scene change.`,
+  `0:26 — punch-in zoom on each job title as you name it, one cut per title.`,
+  `0:34 — slow the pace deliberately for the last line; contrast against the fast typing section.`
+ ],
+ emo:`Recognition. The viewer is watching their own behaviour on screen before you've made a claim, so the correction lands as personal rather than theoretical — and recognition converts to comments far more reliably than admiration does.`,
+ pay:`They leave with the reframe that got them stuck named out loud, the four-line rubric, three role titles, and the knowledge that the application is a work sample they can already pass. That answers the accusation in the hook precisely.`,
+ cta:`"If you want the four-line rubric exactly as I use it, comment RUBRIC and I'll send it."`,
+ ctaFor:"Comments + follows",
+ risk:`The 0:07–0:22 demo is where people leave — watching someone type is boring. Fix it by pre-typing the rubric and revealing it line by line with click sound effects instead of typing in real time, and cap it at four lines even if you use six.`
+},
+{
+ n:2, title:"The headline that's two years out of date",
+ plat:"LinkedIn", len:"60–90s", style:"Educational / mild controversy", driver:"Fear of being left behind",
+ score:9, scoreWhy:`Titles are identity on LinkedIn, so the claim provokes without insulting anyone's competence, and the free-audit CTA reliably fills the comments. Slightly capped because it only lands for people already positioning themselves publicly.`,
+ hook:`You, mid-frame, holding a printed LinkedIn headline. You strike through the words "Prompt Engineer" with a marker on camera. "If this is still your headline, recruiters aren't finding you — and it's not because you're unqualified."`,
+ idea:`Hiring language moved. The work didn't disappear, the search terms did. The video teaches title-market fit: the five phrases hiring managers actually search now, and a headline formula that gets a profile into those results.`,
+ beats:[
+  ["0:00–0:03","Hook",`Physical strike-through of the dead title.`],
+  ["0:03–0:12","Curiosity",`"The job is still there. The word for it isn't. Here's what replaced it."`],
+  ["0:12–0:35","Value",`Five current titles, each with one line on what that person actually does on a Tuesday.`],
+  ["0:35–0:42","Interrupt",`Switch from talking head to a screen recording of a live search showing result counts.`],
+  ["0:42–1:10","Payoff",`The headline formula, then your own headline rewritten live using it.`],
+  ["1:10–1:20","CTA",`Offer to rewrite headlines posted in the comments.`]
+ ],
+ talk:[
+  `Say plainly that the skill didn't die — the label did. This keeps it from reading as gatekeeping.`,
+  `Name the five titles fast, one line of real work each. No definitions.`,
+  `Show the search: same skills, different keyword, wildly different result counts.`,
+  `Give the formula: role for a named industry, then the tool stack, then one measurable outcome.`,
+  `Rewrite one real headline on camera, including the parts you cut.`,
+  `Explain why the outcome number matters more than the tool list.`,
+  `Invite headlines into the comments.`
+ ],
+ vis:[
+  `Open on a mid-shot with a real printed page and a real marker — physical props stop the scroll on a feed of talking heads.`,
+  `Titles appear as clean overlay cards, one per cut, no animation flourish.`,
+  `Screen recording of the search at 0:35, with the result count circled by hand-drawn annotation.`,
+  `Final frame holds the formula alone for three full seconds.`
+ ],
+ osd:["The work didn't die. The word did.","Recruiters search titles, not skills","Role + industry + stack + number","Post yours below"],
+ ints:[
+  `0:35 — talking head to screen recording; also drop your voice half a step and slow down.`,
+  `0:42 — stand up or change your seated angle so the framing visibly shifts for the payoff.`,
+  `1:00 — full-screen text card for the formula, no face at all.`
+ ],
+ emo:`Fear of being left behind, held just under the threshold of insult. It works on LinkedIn because the fix is free, immediate, and visible to the viewer's own network — being out of date is embarrassing, and you're offering to end it in one edit.`,
+ pay:`They can fix their headline before the video ends, and you've offered to check it. The hook accused their profile; the payoff repairs it.`,
+ cta:`"Paste your current headline below. I'll rewrite the first twenty in the comments."`,
+ ctaFor:"Comments",
+ risk:`0:12–0:35 turns into a list that feels like a lecture. Fix it by attaching each title to a specific person doing a specific thing on a Tuesday — concrete beats comprehensive.`
+},
+{
+ n:3, title:"4,271 applicants versus twelve",
+ plat:"Instagram Reels", len:"30–60s", style:"Educational", driver:"Fear of missing out",
+ score:9, scoreWhy:`The visual contrast does the whole job in under two seconds with no words needed, which is exactly how Reels travel, and "save before this gets crowded" is a genuine reason to save rather than a beg.`,
+ hook:`Split screen, no talking. Left: a LinkedIn post reading "4,271 applicants." Right: a marketplace listing reading "12 applicants." Text on screen: "Same job." Hold for a full beat before any voice.`,
+ idea:`Most people apply where every other applicant already is. The video shows four places where AI roles are filled through work samples instead of résumé piles, and explains why the application process itself is different — you're tested, not screened.`,
+ beats:[
+  ["0:00–0:03","Hook",`Silent split screen, the two applicant counts.`],
+  ["0:03–0:09","Curiosity",`"Both of these are hiring for the same work. One of them will actually read your application."`],
+  ["0:09–0:26","Value",`Four hiring surfaces, screen-recorded, with the applicant counts visible on each.`],
+  ["0:26–0:31","Interrupt",`Cut to face for one line, then straight back to screen.`],
+  ["0:31–0:45","Payoff",`Why these hire faster: a scored task replaces the résumé, so no network is required.`],
+  ["0:45–0:52","CTA",`Save prompt tied to the crowding.`]
+ ],
+ talk:[
+  `Open on the contrast, not the explanation.`,
+  `Say the uncomfortable part: the crowded board isn't rejecting you, it isn't reaching you.`,
+  `Walk the four surfaces quickly — talent marketplaces, lab careers pages, AI-native startup boards, contractor networks.`,
+  `The pivot line: these don't ask for a résumé first, they ask you to do the work.`,
+  `Explain that the task is scored blind, which is why background matters less here.`,
+  `Warn that the good ones close fast — which is the honest reason to save it.`
+ ],
+ vis:[
+  `Hold the split screen still and silent for a full second before any motion. Stillness in a fast feed is itself an interrupt.`,
+  `Screen recordings of each surface with applicant counts highlighted by a drawn circle.`,
+  `One face cut at 0:26, framed off-centre so it doesn't feel like a standard talking head.`,
+  `Final card lists the four surfaces as plain text, held long enough to screenshot.`
+ ],
+ osd:["Same job. Same week.","You're not being rejected — you're not being seen","Work sample > résumé","Screenshot this list"],
+ ints:[
+  `0:03 — audio enters for the first time; starting silent then adding voice is a stronger interrupt than any cut.`,
+  `0:26 — face cut, one sentence only, then back to screen before the viewer settles.`,
+  `0:40 — the pace slows and the music drops out under the last point.`
+ ],
+ emo:`Fear of missing out, evidenced rather than claimed. The two numbers side by side prove the point before the viewer has decided whether to trust you, which is the fastest possible route to credibility on Reels.`,
+ pay:`Four concrete places to apply tonight and the reason applications there get read. The hook promised an unfair comparison and the payoff hands over the better side of it.`,
+ cta:`"Save this one — these get crowded the moment they're posted anywhere."`,
+ ctaFor:"Saves + shares",
+ risk:`0:09–0:26 risks becoming a list of names with no texture. Fix it by keeping the live applicant count visible in every single recording, so the original contrast is being re-proved on screen the entire time.`
+},
+{
+ n:4, title:"Your profession is the qualification",
+ plat:"YouTube Shorts", len:"30–60s", style:"Storytelling → educational", driver:"Recognition",
+ score:10, scoreWhy:`It reaches people who have written themselves out of AI work entirely, the twist is genuinely surprising, and the CTA invites every viewer to type their own job title — the single most reliable comment mechanic in this niche.`,
+ hook:`Straight to camera, no preamble: "A nurse I know makes more per hour teaching an AI than she does on a ward shift. She can't code and never learned to."`,
+ idea:`Labs pay licensed professionals to write and grade domain-specific answers — the work is called expert data. The qualification is the career the viewer already has: medicine, law, accounting, engineering, teaching, trades. The video reframes their existing credential as the entry ticket.`,
+ beats:[
+  ["0:00–0:03","Hook",`The nurse, the pay comparison, the no-code detail.`],
+  ["0:03–0:10","Curiosity",`"She isn't building anything. She's grading it — and it's the answer she'd give a patient."`],
+  ["0:10–0:24","Value",`What expert data work actually is: write the correct domain answer, mark where the model got it wrong, explain why.`],
+  ["0:24–0:29","Interrupt",`Cut to a screen recording of a live listing that names required professions.`],
+  ["0:29–0:45","Payoff",`The professions in demand right now, plus the fact that your licence or registration is the portfolio.`],
+  ["0:45–0:52","CTA",`Ask for professions in the comments.`]
+ ],
+ talk:[
+  `Lead with the person, not the category. One human, one comparison.`,
+  `Say what she's not doing — coding, building, prompting — before what she is.`,
+  `Describe one real task in plain language: a model gave a wrong dosage explanation; she writes the correct one and marks the failure.`,
+  `Show the listing that asks for a licence number, not a GitHub link.`,
+  `Name the domains currently hiring hardest.`,
+  `Be honest about the shape of it: project-based, async, volume comes and goes.`,
+  `Invite professions into the comments.`
+ ],
+ vis:[
+  `Open tight on your face, handheld, minimal styling — the story is doing the work and polish would undercut it.`,
+  `B-roll or a stock-style cutaway of clinical or professional work while you describe the task.`,
+  `Screen recording of the live listing at 0:24, with the professions requirement highlighted.`,
+  `End on a plain list of domains, still frame, held.`
+ ],
+ osd:["She can't code","Your licence is the portfolio","They need your domain, not your Python","Comment your profession"],
+ ints:[
+  `0:24 — first cut away from your face in the whole video; save it for the proof.`,
+  `0:35 — zoom-punch on the professions list as each is named.`,
+  `0:42 — deliberate pause before the honest caveat; the change in rhythm signals a truth.`
+ ],
+ emo:`Recognition, aimed at people who assumed this market had nothing for them. Being told your existing career is the credential is more motivating than any pay figure, and it converts into comments because the viewer wants to know about their specific job.`,
+ pay:`They learn their profession is the entry requirement, what the work involves, and that the credential they already hold is the application. It answers the hook's implicit question — how does a nurse get paid by an AI lab.`,
+ cta:`"Comment your profession and I'll tell you whether there's demand for it right now."`,
+ ctaFor:"Comments",
+ risk:`The pay comparison invites disbelief in the first three seconds. Fix it by putting the live listing screen recording earlier — around 0:18 — if early retention data shows a drop, and always say rates vary by domain and country.`
+},
+{
+ n:5, title:"One AI job application, timer running",
+ plat:"Instagram Reels", len:"60–90s", style:"Tutorial", driver:"Curiosity + urgency",
+ score:8, scoreWhy:`The visible timer creates mechanical tension that holds a full ninety seconds, and process videos get saved. It scores below the top tier because it demystifies rather than surprises — nothing in it makes someone stop and send it to a friend.`,
+ hook:`Hands already on the keyboard, a timer counting up in the corner. "Timer's running. One AI job application, start to finish, no résumé attached."`,
+ idea:`A real-time application walkthrough that removes the imagined barrier. Viewers discover the process is a profile plus a short work sample, and that the sample is the entire decision.`,
+ beats:[
+  ["0:00–0:03","Hook",`Timer starts on screen, hands in motion.`],
+  ["0:03–0:10","Curiosity",`"The part everyone gets wrong is one box near the end."`],
+  ["0:10–0:50","Value",`Profile, skills selection, availability — narrated at pace, sped up where it's dull.`],
+  ["0:50–0:58","Interrupt",`Timer turns red, everything stops, speed drops to real time.`],
+  ["0:58–1:20","Payoff",`The work-sample box: what a weak answer looks like versus a strong one, side by side.`],
+  ["1:20–1:30","CTA",`Submit on camera, then the ask.`]
+ ],
+ talk:[
+  `Announce the constraint up front — it's the reason to keep watching.`,
+  `Tease the one box that decides it, but don't say which yet.`,
+  `Move fast through the mechanical fields; speed-ramp anything dull.`,
+  `Stop hard at the work-sample box. This is the hinge of the video.`,
+  `Show a weak answer first, then rewrite it into a strong one.`,
+  `Explain what the reviewer is actually checking for: specificity and a stated criterion.`,
+  `Hit submit on camera. The click is the payoff sound.`
+ ],
+ vis:[
+  `Screen recording with a hand-cam picture-in-picture; two moving frames beat one.`,
+  `Persistent timer overlay in a fixed corner all the way through.`,
+  `Speed ramps on the boring fields, real time on the work sample.`,
+  `Side-by-side text comparison for weak versus strong, then the submit button press held for a beat.`
+ ],
+ osd:["No résumé","This box decides it","Weak / Strong","Submitted"],
+ ints:[
+  `0:50 — timer changes colour and the speed drops from 3× to 1×; the tempo change alone resets attention.`,
+  `1:05 — cut to a full-screen text comparison, no cursor, no interface.`,
+  `1:20 — a single loud click sound on submit, then silence.`
+ ],
+ emo:`Curiosity carried by urgency. The timer converts an ordinary process video into something with a finish line, and a visible finish line is the cheapest retention device available for a ninety-second edit.`,
+ pay:`They see the whole process end to end, learn that the work sample is the only part that matters, and get the difference between a weak and strong answer in the applicant's own words.`,
+ cta:`"Save this and do it alongside me — mine took ninety seconds, tell me yours."`,
+ ctaFor:"Saves + comments",
+ risk:`The mechanical fields between 0:10 and 0:50 are where people leave. Fix it with aggressive speed ramps and by cutting away to the tease — "still not the box that matters" — at least twice during that stretch.`
+},
+{
+ n:6, title:"The four-hour portfolio",
+ plat:"LinkedIn", len:"60–90s", style:"Tutorial", driver:"Aspiration",
+ score:9, scoreWhy:`It replaces a credential people believe they need with a document they can build this weekend, and the template CTA converts hard on LinkedIn. Held just under top rank because it needs the full ninety seconds to land.`,
+ hook:`Hold your phone up showing a plain shared document. "No degree, no GitHub. This one document got me three interviews, and it took an afternoon."`,
+ idea:`A published evaluation study is the portfolio for AI work, because it is the job. Pick one task, write twenty test cases, grade two models against them, publish what you found. The video walks the four sections.`,
+ beats:[
+  ["0:00–0:03","Hook",`The document on screen, the claim, the time cost.`],
+  ["0:03–0:12","Curiosity",`"It's not a project. It's an argument — and the argument is the skill they're hiring."`],
+  ["0:12–0:45","Value",`The four sections, scrolled through on the real document.`],
+  ["0:45–0:52","Interrupt",`Cut from screen to face; state the uncomfortable part about degrees.`],
+  ["0:52–1:15","Payoff",`The exact task to pick this weekend and why twenty cases is the right number.`],
+  ["1:15–1:25","CTA",`Template keyword.`]
+ ],
+ talk:[
+  `Show the document before explaining it. Proof precedes claim.`,
+  `Section one: the task, defined narrowly enough to be gradeable.`,
+  `Section two: twenty test cases, including the ones designed to fail.`,
+  `Section three: two models graded side by side against written criteria.`,
+  `Section four: what you'd change about the system, in three sentences.`,
+  `Say why this outperforms a certificate — it is a work sample of the actual job.`,
+  `Give them the starting task and the number.`
+ ],
+ vis:[
+  `Real document on screen, scrolled at reading pace with sections highlighted as named.`,
+  `Cut to face only once, at 0:45, for the claim about degrees.`,
+  `A simple built graphic for the four sections, appearing one line at a time.`,
+  `Close on the document's share settings being switched to public — a small, satisfying, concrete action.`
+ ],
+ osd:["It took one afternoon","20 cases. 2 models. Written criteria.","This IS the job","Make it public"],
+ ints:[
+  `0:45 — the only face cut in the video, which makes it land as emphasis rather than routine.`,
+  `1:00 — switch to a built graphic and drop the screen recording entirely.`,
+  `1:15 — return to the live document for the final action.`
+ ],
+ emo:`Aspiration with the barrier removed. LinkedIn's audience wants proof of competence they can display, and this converts an afternoon into a shareable credential — the ratio is what makes it travel.`,
+ pay:`A four-section template, the specific task to start with, and the number of test cases. The hook promised the document that got interviews; the payoff hands over its skeleton.`,
+ cta:`"Comment EVAL and I'll send the blank version of this document."`,
+ ctaFor:"Comments + follows",
+ risk:`Between 0:12 and 0:45 the document scroll can read as dense and unreadable on a phone. Fix it by zooming to one section at a time at 140% and never showing more than six lines of text in a frame.`
+},
+{
+ n:7, title:"The sentence that got me rejected",
+ plat:"YouTube Shorts", len:"30–60s", style:"Storytelling → educational", driver:"Curiosity + vicarious fear",
+ score:9, scoreWhy:`Reading a real rejection is voyeuristic and the information gap is genuine — the viewer cannot guess the sentence, so they stay for it. Repeat viewing is high because the fix is a formula people rewatch to copy.`,
+ hook:`Phone screen, thumb scrolling an inbox, stopping on an email. Read the subject line aloud, flatly: "Your submission did not meet our quality standard." Then: "One sentence did this. I'll show you which."`,
+ idea:`Most AI trainer applications fail on the same thing — feedback that is vague and unfalsifiable. The video shows the rejected sentence, then the three-part structure that passes: what is wrong, why it is wrong, and the corrected version.`,
+ beats:[
+  ["0:00–0:03","Hook",`The real rejection email on a real phone.`],
+  ["0:03–0:10","Curiosity",`"It wasn't the answer. It was how I described what was wrong with theirs."`],
+  ["0:10–0:20","Value",`The rejected sentence, shown in full, read aloud.`],
+  ["0:20–0:25","Interrupt",`Freeze frame with the weak words circled by hand.`],
+  ["0:25–0:45","Payoff",`The three-part formula, then the same feedback rewritten to pass.`],
+  ["0:45–0:52","CTA",`Ask which part they'd skip.`]
+ ],
+ talk:[
+  `Read the rejection without softening it. Self-deprecation buys permission to teach.`,
+  `Say what you assumed was being graded, and that you were wrong.`,
+  `Show your actual sentence. It has to be genuinely weak for this to work.`,
+  `Freeze and circle the unfalsifiable words: "bad", "unclear", "doesn't feel right".`,
+  `Give the three parts in order — defect, reason, correction.`,
+  `Rewrite the same sentence live using them.`,
+  `Note that the third part is the one nearly everyone skips.`
+ ],
+ vis:[
+  `Genuine phone-in-hand footage for the email; screen-recorded polish would kill the credibility.`,
+  `Freeze frame with hand-drawn circles and arrows over the weak words.`,
+  `Before and after text on a plain background, stacked vertically, weak on top.`,
+  `Last frame holds the three-part formula alone.`
+ ],
+ osd:["Real rejection","\"Bad\" is not feedback","Defect → reason → correction","Most people skip #3"],
+ ints:[
+  `0:20 — full freeze frame with drawn annotation; motion stopping is a stronger interrupt than motion changing.`,
+  `0:30 — cut to plain text on a solid ground, no interface elements at all.`,
+  `0:40 — read the rewritten version noticeably slower than everything before it.`
+ ],
+ emo:`Curiosity with a borrowed sting. Watching someone else's rejection is safe and compelling, and it lets you teach a correction without ever implying the viewer is deficient.`,
+ pay:`The exact sentence that failed, the three-part structure that passes, and a rewritten example. The hook promised one sentence; the payoff delivers it and its replacement.`,
+ cta:`"Which of the three do you skip? Be honest — it's number three for most people."`,
+ ctaFor:"Comments",
+ risk:`If the rejected sentence looks obviously bad, the reveal deflates. Fix it by choosing a sentence that sounds reasonable on first read, so the viewer thinks it's fine and then learns why it isn't.`
+},
+{
+ n:8, title:"Every time someone says AI is killing jobs",
+ plat:"LinkedIn", len:"60–90s", style:"Educational / controversy", driver:"Controversy → reframe",
+ score:9, scoreWhy:`The premise argues with the platform's most repeated take, which drives both defenders and objectors into the comments, and the numbered categories give the CTA an easy answer format. Comment volume will be high but not uniformly friendly.`,
+ hook:`Screen-record a live job search, mid-scroll. "Every time someone tells me AI is killing jobs, I open this tab. I'm not saying they're wrong. I'm saying they're only reading one half of it."`,
+ idea:`Displacement is real and should be conceded in one line. The video then maps six categories of work the same wave created — most of which need no engineering — and shows which existing skill each one absorbs.`,
+ beats:[
+  ["0:00–0:04","Hook",`Live search results, the concession, the challenge.`],
+  ["0:04–0:14","Curiosity",`"Both things are happening at once, and only one of them is being posted about."`],
+  ["0:14–0:50","Value",`Six categories, each with the daily work and the skill it absorbs.`],
+  ["0:50–0:58","Interrupt",`Leave the screen, sit down, change the tone from data to argument.`],
+  ["0:58–1:20","Payoff",`Which existing professions map onto which category.`],
+  ["1:20–1:30","CTA",`Ask for the closest category by number.`]
+ ],
+ talk:[
+  `Concede the loss first and mean it. Skipping this makes the whole video read as denial.`,
+  `Set the frame: two things at once, one of them under-reported.`,
+  `Six categories, each named with what the person does daily — evaluation, agent operations, automation implementation, expert data, AI-assisted support, safety and red teaming.`,
+  `For each, name the skill it absorbs rather than the tool it requires.`,
+  `Change posture and tone for the argument beat.`,
+  `Map professions to categories out loud, quickly.`,
+  `Ask for their number.`
+ ],
+ vis:[
+  `Live screen recording with real result counts, never a mocked-up graphic.`,
+  `Each category as a numbered overlay card with two lines — work and skill.`,
+  `Physical shift at 0:50: stand up, sit down, or change location.`,
+  `End with all six numbered on one held frame so people can answer with a number.`
+ ],
+ osd:["Both are true","6 categories, 0 of them require a CS degree","Named skill, not named tool","Which number is closest to you?"],
+ ints:[
+  `0:50 — physical location or posture change; the biggest available interrupt on a talking-head platform.`,
+  `1:05 — pacing drops as you map professions, one every two seconds.`,
+  `1:20 — the six numbers return on screen all at once for the CTA.`
+ ],
+ emo:`Controversy, then reframe. LinkedIn rewards a post that takes a position on a consensus take, and conceding the strongest counter-argument in line one is what keeps it from becoming a fight you lose in the comments.`,
+ pay:`Six real categories, the skill each one absorbs, and a professional mapping — a genuine answer to a debate the viewer has already had at work.`,
+ cta:`"Which of the six is closest to what you already do? Comment the number."`,
+ ctaFor:"Comments + shares",
+ risk:`If the concession is skipped or rushed, the comments turn hostile and retention drops as people leave to argue. Fix it by giving the concession its own beat with eye contact and no overlay competing for attention.`
+},
+{
+ n:9, title:"Three free tools, one afternoon",
+ plat:"Instagram Reels", len:"30–60s", style:"Educational", driver:"Aspiration",
+ score:8, scoreWhy:`Tool videos save well and repeat-view well, but the format is common in this niche, so it will perform steadily rather than break out. The single build at the end is what separates it from every other tool list.`,
+ hook:`Three browser tabs snapping open in rapid succession, one per second. "Three free tools. If you can use all three together, you're qualified for work that pays more than my last salary."`,
+ idea:`A no-cost skill stack — a visual automation builder, a retrieval setup over your own documents, and an evaluation sheet. The differentiator is the closing brief: one twenty-minute build that demonstrates all three at once and doubles as a portfolio piece.`,
+ beats:[
+  ["0:00–0:03","Hook",`Three tabs open in sequence, claim over the top.`],
+  ["0:03–0:08","Curiosity",`"Separately they're hobby tools. Together they're a job description."`],
+  ["0:08–0:30","Value",`Six seconds per tool, live on screen, one capability each.`],
+  ["0:30–0:35","Interrupt",`All three windows tile onto one screen at once.`],
+  ["0:35–0:50","Payoff",`The twenty-minute build that uses all three and doubles as a portfolio piece.`],
+  ["0:50–0:57","CTA",`Save prompt.`]
+ ],
+ talk:[
+  `Open with the claim, not the tool names.`,
+  `Tool one: the automation builder — show one trigger and one action, nothing more.`,
+  `Tool two: retrieval over your own documents — one question, one sourced answer.`,
+  `Tool three: the evaluation sheet — criteria in columns, outputs in rows.`,
+  `Tile all three and say the sentence that connects them: build it, ground it, prove it works.`,
+  `Give the single brief: automate one repetitive task, ground it in real documents, grade twenty runs.`,
+  `Say that the finished sheet is the thing you send to an employer.`
+ ],
+ vis:[
+  `Fast tab-opening sequence with a click sound on each, cut to the beat.`,
+  `Strict six-second blocks per tool, timed identically so the rhythm is felt.`,
+  `Window tiling moment at 0:30 — all three visible simultaneously, the visual thesis of the video.`,
+  `Final frame lists the three tools and the twenty-minute brief in plain text.`
+ ],
+ osd:["All three. Not one.","Build it → ground it → prove it","20 minutes","The sheet is the portfolio"],
+ ints:[
+  `0:30 — the tiling moment; the visual changes structure rather than just content.`,
+  `0:35 — music swaps or drops for the payoff.`,
+  `0:45 — cut to plain text, no interface, for the brief.`
+ ],
+ emo:`Aspiration with the cost barrier removed. Free plus twenty minutes is small enough that the viewer pictures themselves doing it, and picturing it is what earns the save.`,
+ pay:`A named three-tool stack and a concrete twenty-minute build that leaves them with something to show. The hook's claim gets tested and resolved.`,
+ cta:`"Save it and build it this weekend — twenty minutes, and you'll have something to send someone."`,
+ ctaFor:"Saves",
+ risk:`Six seconds per tool can turn into a blur that teaches nothing. Fix it by showing exactly one capability per tool and refusing to mention pricing tiers, alternatives, or setup steps.`
+},
+{
+ n:10, title:"Her entire job is saying \"no, that's wrong\"",
+ plat:"Instagram Reels", len:"30–60s", style:"Storytelling / humour", driver:"Humour → surprise",
+ score:9, scoreWhy:`It's funny, it's a person rather than a category, and it's the most sendable concept on the board — people forward it to the friend who argues with everything. Shares carry it further than saves.`,
+ hook:`Deadpan to camera: "My friend's entire job is telling a robot it's wrong. She's paid better than I am. She has told me this at every dinner for six months."`,
+ idea:`Preference rating and red teaming, explained through a person instead of a job description. Under the joke sits real information: what a shift looks like, what gets rated, and how someone gets onto a roster.`,
+ beats:[
+  ["0:00–0:04","Hook",`The joke, delivered flat, plus the personal grievance.`],
+  ["0:04–0:10","Curiosity",`"I assumed it was data entry. It's closer to being a professional sceptic."`],
+  ["0:10–0:26","Value",`What she actually does: two answers, pick the better one, write why in one line, escalate anything unsafe.`],
+  ["0:26–0:31","Interrupt",`Cut to a mock two-option comparison on screen and make the viewer choose.`],
+  ["0:31–0:45","Payoff",`How she got on the roster, and the trait they screened for.`],
+  ["0:45–0:52","CTA",`Share prompt aimed at one specific kind of friend.`]
+ ],
+ talk:[
+  `Keep the delivery dry. The humour is in the flatness, not the punchline.`,
+  `Admit your own wrong assumption about the work.`,
+  `Describe one real rating task concretely.`,
+  `Put two answers on screen and let the viewer pick before you reveal which is preferred.`,
+  `Explain the trait that got her hired: consistency, not brilliance.`,
+  `Say the honest downside — the work is repetitive and volume fluctuates.`,
+  `Close on the share line.`
+ ],
+ vis:[
+  `Handheld, close, natural light. Over-produced framing kills a dry joke.`,
+  `Text-message-style overlay for her replies to you, which lets the friend appear without appearing.`,
+  `On-screen A/B comparison at 0:26 with a two-second timer for the viewer to choose.`,
+  `Reveal frame with the preferred answer marked.`
+ ],
+ osd:["Professional sceptic","Pick one. You have 2 seconds.","They screen for consistency","Send this to the argumentative one"],
+ ints:[
+  `0:26 — the video hands a decision to the viewer, which is the strongest possible interrupt because it demands participation.`,
+  `0:31 — reveal with a sound cue.`,
+  `0:40 — tone shifts from funny to straight for the honest downside.`
+ ],
+ emo:`Humour first, surprise second. A funny premise gets shared far past the audience that's actively job-hunting, and the real information underneath converts the ones who are.`,
+ pay:`They understand a real role they'd never heard described, know what's screened for, and have a joke worth forwarding. The hook's absurdity turns out to be a legitimate job.`,
+ cta:`"Send this to the person in your life who argues with everything. It's a career now."`,
+ ctaFor:"Shares",
+ risk:`The joke can eat the information, leaving nothing useful. Fix it by making the A/B moment at 0:26 genuinely instructive — the viewer should learn the rating criterion by using it, not by hearing it.`
+},
+{
+ n:11, title:"Same laptop, different currency",
+ plat:"YouTube Shorts", len:"60–90s", style:"Educational", driver:"Fear of missing out",
+ score:9, scoreWhy:`Aimed squarely at viewers outside the US, where the multiplier is life-changing and almost nobody is making content about the practical mechanics. The honesty beat is what keeps it from reading as a scam pitch.`,
+ hook:`Two numbers appear side by side on screen, identical work described under each. "Same job. Same laptop. Same hours. One of these people gets paid in dollars."`,
+ idea:`Remote AI marketplaces price work in USD regardless of where the contractor lives. The video covers the multiplier honestly and then the practical part almost no one explains: which categories are geo-open, which payment rails actually clear, and what the real constraints are.`,
+ beats:[
+  ["0:00–0:04","Hook",`The two figures, the identical work.`],
+  ["0:04–0:14","Curiosity",`"The gap isn't skill and it isn't luck. It's which side of the platform you applied through."`],
+  ["0:14–0:40","Value",`The three geo-open categories and how to tell from a listing which is which.`],
+  ["0:40–0:48","Interrupt",`Stop, change tone, deliver the constraints.`],
+  ["0:48–1:15","Payoff",`Payment rails that work, plus the honest limits: rate caps, unpaid screening, uneven volume.`],
+  ["1:15–1:25","CTA",`Ask for country in the comments.`]
+ ],
+ talk:[
+  `Open with the comparison, not the explanation.`,
+  `Name the mechanism: platform pricing is set by the buyer's market, not the worker's.`,
+  `Three geo-open categories, and the phrase in a listing that tells you it's geo-locked.`,
+  `Hard stop for the constraints — this beat is what makes the rest believable.`,
+  `Payment rails, and the one that usually fails.`,
+  `Say the tax obligation exists and that it's the viewer's to handle.`,
+  `Ask which country they're in.`
+ ],
+ vis:[
+  `Open on a clean two-column number comparison with no face — numbers stop a scroll faster than a person.`,
+  `Screen recordings of real listings with the geo-restriction language highlighted.`,
+  `Posture and framing change at 0:40 for the constraints beat.`,
+  `End card listing the three categories and two working payment rails.`
+ ],
+ osd:["Priced in the buyer's currency","Read this line before applying","The unglamorous part","Comment your country"],
+ ints:[
+  `0:40 — the honesty pivot: change framing, slow down, and drop the music entirely.`,
+  `0:55 — cut to a screen recording of the payment setup, real interface.`,
+  `1:10 — a single held frame with no narration at all for two seconds.`
+ ],
+ emo:`Fear of missing out, disciplined by honesty. The upside is genuinely large for a non-US viewer, so the credibility risk is high — the constraints beat converts a claim that sounds too good into one that sounds reported.`,
+ pay:`Three geo-open categories, how to read a listing for restrictions, working payment rails, and the real limits. The hook's gap is explained and made actionable.`,
+ cta:`"Comment your country and I'll tell you which of the three is open where you are."`,
+ ctaFor:"Comments",
+ risk:`It reads as a get-rich pitch if the constraints arrive too late. Fix it by moving one constraint into the first fifteen seconds — a single line about unpaid screening buys the rest of the video its credibility.`
+},
+{
+ n:12, title:"The question that ends the interview",
+ plat:"LinkedIn", len:"30–60s", style:"Educational", driver:"Curiosity + participation",
+ score:9, scoreWhy:`Asking the viewer to answer before you do converts passive watching into a comment, and the silent beat after the question is one of the most reliable retention devices in short form. Rewatched by anyone with an interview booked.`,
+ hook:`A model output appears on screen. Over it, one line: "Is this good?" Then silence for a full second and a half before you speak. "This ends nine out of ten AI interviews. Answer it before I do."`,
+ idea:`The universal screening question in AI hiring is an evaluation prompt. The video teaches a four-step answer — criteria, evidence, severity, fix — and demonstrates it live on the output shown in the hook.`,
+ beats:[
+  ["0:00–0:04","Hook",`The output, the question, and a deliberate silence.`],
+  ["0:04–0:12","Curiosity",`"Most people answer with an opinion. They're being tested on method."`],
+  ["0:12–0:22","Value",`Why opinions fail: they're unfalsifiable and can't be reviewed by anyone else.`],
+  ["0:22–0:27","Interrupt",`Cut to full-screen text: the four steps, appearing one at a time.`],
+  ["0:27–0:48","Payoff",`Answer the original output out loud using all four steps.`],
+  ["0:48–0:55","CTA",`Ask for their answer in the comments.`]
+ ],
+ talk:[
+  `Show the output and hold the silence. Do not fill it.`,
+  `Name the mistake: answering with a feeling.`,
+  `Explain what the interviewer is testing — whether your judgement is repeatable by someone else.`,
+  `Reveal the four steps one at a time, not as a list.`,
+  `Answer the hook's output live, hitting each step in order.`,
+  `Point out that step four is what turns a critic into a hire.`,
+  `Invite their attempt.`
+ ],
+ vis:[
+  `Static frame of the model output for the full opening — stillness plus silence in a moving feed is the interrupt.`,
+  `Face appears only after the silence breaks.`,
+  `Four-step text card built line by line, held for the demonstration.`,
+  `Split view for the final answer: output left, your four-step response building on the right.`
+ ],
+ osd:["Is this good?","An opinion is not an evaluation","Criteria → evidence → severity → fix","Answer below before you rewatch"],
+ ints:[
+  `0:00 — the silence itself; nearly every competing video opens loud.`,
+  `0:22 — cut to full-screen text with no face and no interface.`,
+  `0:40 — slow the delivery for step four, the one people skip.`
+ ],
+ emo:`Curiosity that becomes participation. Being handed a question you can't answer creates a gap you have to close, and having attempted it privately makes commenting the natural next move.`,
+ pay:`A four-step method demonstrated on the exact output from the hook, so they can hear the difference between an opinion and an evaluation.`,
+ cta:`"Answer it in the comments before you watch again — I'll tell you which step you skipped."`,
+ ctaFor:"Comments",
+ risk:`The silence at the open is the risky part; if the output on screen is too long to read in a second, the viewer leaves. Fix it by choosing an output of two lines maximum, in large type.`
+},
+{
+ n:13, title:"Five red flags in remote AI job posts",
+ plat:"Instagram Reels", len:"30–60s", style:"Educational / protective", driver:"Fear + protectiveness",
+ score:8, scoreWhy:`Protective content gets sent directly to specific people, which is the highest-quality distribution there is, and it saves well. Ceiling is lower because it doesn't recruit new audience so much as serve the existing one.`,
+ hook:`A job post fills the screen with one line blurred. "If a remote AI job asks you for this, close the tab. I'll unblur it in five seconds."`,
+ idea:`Recruitment fraud follows AI hiring closely, and this audience is exactly the target. Five specific red flags, then a thirty-second verification routine that works on any listing.`,
+ beats:[
+  ["0:00–0:04","Hook",`Blurred line, the instruction, the promise to reveal.`],
+  ["0:04–0:10","Curiosity",`"Four of the five look completely normal, which is why they work."`],
+  ["0:10–0:32","Value",`The five flags, each on a real-looking post.`],
+  ["0:32–0:37","Interrupt",`Unblur the original line from the hook.`],
+  ["0:37–0:52","Payoff",`The thirty-second verification routine: domain, register, reverse image.`],
+  ["0:52–1:00","CTA",`Send-to-someone prompt.`]
+ ],
+ talk:[
+  `Set the promise immediately — the unblur is the retention contract.`,
+  `Flag one: any payment from you, for any reason, including equipment.`,
+  `Flag two: interviews conducted entirely in a messaging app.`,
+  `Flag three: an offer with no video call at any stage.`,
+  `Flag four: payment in crypto or via a cheque you're asked to forward.`,
+  `Flag five: recruiter email on a free mail domain.`,
+  `Unblur the hook line, then teach the thirty-second check.`
+ ],
+ vis:[
+  `Realistic mock listings, clearly labelled as examples so nothing real is defamed.`,
+  `Each flag stamped on screen with a hard cut and a click.`,
+  `The unblur handled as a genuine reveal with a sound cue.`,
+  `Verification routine shown as a live screen recording, timed on screen.`
+ ],
+ osd:["4 of these look normal","You never pay to work","No video call, no job","30-second check"],
+ ints:[
+  `0:32 — the unblur; the promise made at 0:04 is paid here and it resets attention completely.`,
+  `0:37 — switch from mock posts to a live screen recording with a running timer.`,
+  `0:50 — pace slows for the closing line.`
+ ],
+ emo:`Fear, redirected into protectiveness. People don't share things that make them look worried, but they will send a warning to someone they care about — which is why the CTA names a person rather than an action.`,
+ pay:`Five flags plus a verification routine short enough to actually use. The blurred line from the hook is revealed and explained.`,
+ cta:`"Send this to whoever in your life is job hunting right now. This is the one to forward."`,
+ ctaFor:"Shares + saves",
+ risk:`Five flags in twenty-two seconds becomes an unmemorable blur. Fix it by giving flags one and four the most time — they're the ones that cost money — and compressing the middle three into a rapid sequence.`
+},
+{
+ n:14, title:"The four-line email to a business with no AI",
+ plat:"YouTube Shorts", len:"60–90s", style:"Tutorial", driver:"Aspiration + proof",
+ score:9, scoreWhy:`Showing the unedited email and a real reply is rare in a niche full of unverifiable claims, and the retainer framing gives it commercial appeal beyond job seekers. Including a rejection is what makes it credible.`,
+ hook:`An email on screen, nothing blurred. "I sent these four lines to a business that has never used AI for anything. Read it before I explain it — it's short on purpose."`,
+ idea:`The freelance route into AI work: find one repetitive process inside a small business, automate it, charge monthly. The video shows the outreach, the first automation worth selling, and a real reply — including one that said no.`,
+ beats:[
+  ["0:00–0:05","Hook",`The real email, readable, unblurred.`],
+  ["0:05–0:15","Curiosity",`"Three of the four lines are about them. That's the whole trick."`],
+  ["0:15–0:45","Value",`Line by line: the observation, the cost, the offer, the ask.`],
+  ["0:45–0:52","Interrupt",`Cut to the inbox and open the replies, including a rejection.`],
+  ["0:52–1:20","Payoff",`The first automation to sell and why it's the easiest yes in the market.`],
+  ["1:20–1:30","CTA",`Keyword for the email.`]
+ ],
+ talk:[
+  `Show the email first and give people time to read it.`,
+  `Line one: a specific observation about their business, not a compliment.`,
+  `Line two: what the manual version of it costs them per week, in hours.`,
+  `Line three: the offer, framed as a single fixed process, not a transformation.`,
+  `Line four: an ask small enough to say yes to.`,
+  `Show the replies honestly, rejection included.`,
+  `Name the first automation to sell: the missed enquiry that never gets answered.`
+ ],
+ vis:[
+  `Real email on screen, held long enough to read at phone size.`,
+  `Each line highlighted as it's discussed, with the rest dimmed.`,
+  `Live inbox at 0:45 — the rejection visible on screen, not just mentioned.`,
+  `Simple flow diagram of the missed-enquiry automation, built in three steps.`
+ ],
+ osd:["4 lines. 3 about them.","Hours, not features","Real reply","Start with the enquiry nobody answers"],
+ ints:[
+  `0:45 — moving from a static email to a live inbox with real replies changes the video from teaching to evidence.`,
+  `1:00 — switch to the built diagram; leave the interface entirely.`,
+  `1:15 — return to the email one last time for a single line.`
+ ],
+ emo:`Aspiration anchored by proof. The niche is saturated with unverifiable income claims, so an unedited email and a visible rejection are worth more than any number you could say out loud.`,
+ pay:`The exact email structure, a real reply, and the specific automation to lead with. The hook asked them to read four lines; the payoff explains why each one is there.`,
+ cta:`"Comment EMAIL and I'll send the four lines as a template you can edit."`,
+ ctaFor:"Comments + follows",
+ risk:`It smells like a guru pitch the moment money is mentioned without evidence. Fix it by showing the rejection before the success, and by never stating a figure you can't put on screen.`
+},
+{
+ n:15, title:"You don't need to code. You need to be picky.",
+ plat:"LinkedIn", len:"30–60s", style:"Educational", driver:"Recognition",
+ score:8, scoreWhy:`Reaches the large group who have ruled themselves out, and the trait framing is memorable. Scores below the profession concept because it names a personality rather than a credential, which is less specific and therefore less commentable.`,
+ hook:`Straight to camera: "You don't need to learn to code. You need to be unbearably difficult to satisfy. Three jobs pay for exactly that."`,
+ idea:`Quality, annotation and review roles screen for conscientiousness rather than technical skill. The video names three roles, the single trait each screens for, and how that trait is tested during application.`,
+ beats:[
+  ["0:00–0:04","Hook",`The reframe, delivered as a compliment to a difficult personality.`],
+  ["0:04–0:12","Curiosity",`"Every one of these has a screening test, and none of them are technical."`],
+  ["0:12–0:35","Value",`Three roles, one line of daily work, one trait each.`],
+  ["0:35–0:42","Interrupt",`Screen recording of an actual screening task.`],
+  ["0:42–1:00","Payoff",`How the trait is tested, and the mistake that fails it.`],
+  ["1:00–1:08","CTA",`Ask which trait is theirs.`]
+ ],
+ talk:[
+  `Open by flipping a trait people apologise for into a qualification.`,
+  `Role one: output quality review — trait is consistency across hundreds of similar items.`,
+  `Role two: annotation and labelling — trait is following a written rule exactly, even when you disagree.`,
+  `Role three: agent conversation review — trait is noticing what's missing rather than what's wrong.`,
+  `Show a real screening task on screen.`,
+  `Name the failure mode: improvising a better rule instead of applying the given one.`,
+  `Ask which of the three traits is theirs.`
+ ],
+ vis:[
+  `Simple mid-shot; this concept is carried by the words, so keep the frame quiet.`,
+  `Three role cards, plain typography, one per cut.`,
+  `Screen recording of a screening task at 0:35 with the instruction highlighted.`,
+  `Final frame lists the three traits as a question.`
+ ],
+ osd:["Picky is a qualification","Follow the rule you disagree with","They test it before they hire you","Which one is you?"],
+ ints:[
+  `0:35 — first cut away from the face, straight into a real task.`,
+  `0:50 — the failure mode delivered slower and quieter than the rest.`,
+  `1:00 — return to the face for the question.`
+ ],
+ emo:`Recognition, of a trait people usually treat as a flaw. Naming pickiness as a paid skill is flattering in a way that feels earned, which makes viewers want to claim it publicly in the comments.`,
+ pay:`Three non-technical roles, the trait each screens for, and the mistake that fails the test. The hook's claim about pickiness is substantiated with the actual screening mechanism.`,
+ cta:`"Which of the three traits is most you? Comment it — the answer usually points to the role."`,
+ ctaFor:"Comments",
+ risk:`"You don't need to code" attracts sceptical replies that suppress reach if unaddressed. Fix it by showing a real screening task early, so the claim is demonstrated rather than asserted.`
+},
+{
+ n:16, title:"The résumé line that's costing you callbacks",
+ plat:"Instagram Reels", len:"15–30s", style:"Tutorial", driver:"Recognition + urgency",
+ score:8, scoreWhy:`The shortest concept on the board and the most rewatchable — a single before-and-after that people replay to copy the structure. Limited ceiling because it teaches one narrow thing, but its completion rate should be the highest here.`,
+ hook:`One line of résumé text alone on screen: "Used ChatGPT to improve productivity." Voice over it: "This line is why nobody's calling you back."`,
+ idea:`AI experience on a résumé fails when it names a tool instead of a measured outcome. The video rewrites one line live using a three-part formula and shows the same line reframed for three different roles.`,
+ beats:[
+  ["0:00–0:03","Hook",`The weak line, alone, accused.`],
+  ["0:03–0:07","Curiosity",`"It's not wrong. It's unverifiable, and unverifiable reads as untrue."`],
+  ["0:07–0:16","Value",`The rewrite, built one component at a time on screen.`],
+  ["0:16–0:19","Interrupt",`Both versions snap onto the screen together.`],
+  ["0:19–0:26","Payoff",`The formula stated plainly, plus the same line adapted for a second role.`],
+  ["0:26–0:30","CTA",`Save prompt.`]
+ ],
+ talk:[
+  `Read the weak line out loud exactly as written.`,
+  `Say why it fails — nothing in it can be checked.`,
+  `Build the rewrite: what you built or evaluated, with what, and the measured change.`,
+  `Snap both versions on screen together for the contrast.`,
+  `State the formula in one sentence.`,
+  `Adapt it once for a different role to prove it generalises.`
+ ],
+ vis:[
+  `Typography only, no face. At fifteen to thirty seconds a face costs more attention than it earns.`,
+  `Components appear one at a time, each with a click.`,
+  `Both versions on screen simultaneously at 0:16 — weak dimmed, strong lit.`,
+  `Final frame holds the formula alone.`
+ ],
+ osd:["Unverifiable = untrue","Built what → with what → changed what","4 hrs/wk → 20 min","Save. Rewrite yours tonight."],
+ ints:[
+  `0:16 — the snap comparison; the visual structure changes rather than the content.`,
+  `0:19 — sound drops out entirely under the formula.`,
+  `0:24 — one quick cut to the adapted version.`
+ ],
+ emo:`Recognition with urgency attached. The viewer almost certainly has this exact line in a live document, and the fix takes less time than the video, which is what makes the save convert into action.`,
+ pay:`A rewritten line and a formula that transfers to every other bullet on the page. The hook's accusation is repaired on screen.`,
+ cta:`"Save this and rewrite one line tonight. One. It takes ninety seconds."`,
+ ctaFor:"Saves",
+ risk:`Text-only videos lose people if the type is small or the pacing is even. Fix it by using no more than eight words per frame and varying the hold time so the rhythm never becomes predictable.`
+},
+{
+ n:17, title:"I don't have a portfolio. I have a folder.",
+ plat:"YouTube Shorts", len:"30–60s", style:"Storytelling → tutorial", driver:"Aspiration",
+ score:8, scoreWhy:`The folder is a lower-friction alternative to a portfolio site, which makes it feel achievable, and the structure is easy to save. It scores mid-range because the premise isn't surprising enough to travel beyond the interested audience.`,
+ hook:`A file browser on screen, one folder highlighted. "I've never built a portfolio site. I have this folder. It's got me into three hiring conversations."`,
+ idea:`A dated working log — problems you solved with AI, the prompt or automation used, the before-and-after, and what failed — functions better than a portfolio because it shows judgement over time rather than a polished result.`,
+ beats:[
+  ["0:00–0:04","Hook",`The folder on screen, the claim.`],
+  ["0:04–0:11","Curiosity",`"It isn't a showcase. Half of what's in it didn't work, and that's the part they read."`],
+  ["0:11–0:32","Value",`Open it. Five entry types, shown live.`],
+  ["0:32–0:38","Interrupt",`Open a failed entry and read it aloud.`],
+  ["0:38–0:52","Payoff",`The five-part entry template and what to log this week.`],
+  ["0:52–1:00","CTA",`Keyword for the template.`]
+ ],
+ talk:[
+  `Show the folder before explaining the idea.`,
+  `Say the counter-intuitive part early: the failures are the credential.`,
+  `Walk the entry types — the problem, the approach, the result, the failure, the change you'd make.`,
+  `Open a genuinely failed entry and read it without softening.`,
+  `Explain why a hiring conversation goes better from this than from a polished site.`,
+  `Give them the first entry to write this week.`
+ ],
+ vis:[
+  `Real file browser, real dates visible — the dates prove it's a habit rather than a stunt.`,
+  `Scroll through entries at reading pace, zoomed for phone legibility.`,
+  `The failed entry gets a full-screen still and a slower read.`,
+  `Template appears as a plain five-line card at the end.`
+ ],
+ osd:["No website","The failures are the credential","5 lines per entry","Write one this week"],
+ ints:[
+  `0:32 — the failure entry; the tone drops and the reading slows.`,
+  `0:44 — cut from the file browser to a clean text card.`,
+  `0:50 — return to the folder for one final shot of the dates.`
+ ],
+ emo:`Aspiration, made cheap. A portfolio site is a project people postpone indefinitely; a dated folder is something they can start in four minutes, and lowering the activation cost is what earns the follow.`,
+ pay:`A five-line entry template, a real example including a failure, and the first entry to write. The hook's folder is fully opened.`,
+ cta:`"Comment FOLDER and I'll send the five-line entry template."`,
+ ctaFor:"Comments + follows",
+ risk:`Scrolling through documents is visually flat. Fix it by never holding on a full page — zoom to one entry at a time and cut every three seconds, using the dates as the visual rhythm.`
+},
+{
+ n:18, title:"9:41am — break the bot before its customers do",
+ plat:"Instagram Reels", len:"60–90s", style:"Storytelling", driver:"Curiosity",
+ score:8, scoreWhy:`Day-in-the-life formats hold attention structurally because each timestamp promises the next one, and this role is unfamiliar enough to be genuinely interesting. It builds trust and follows more than it drives shares.`,
+ hook:`Timestamp overlay: 9:41am. Desk shot, coffee, screen already open. "My whole job today is to break this company's support bot before a customer does."`,
+ idea:`An honest hour-by-hour of agent quality assurance — writing adversarial test cases, logging failures with severity, and handing findings to engineers. It makes an abstract job title into a real day, including the dull parts.`,
+ beats:[
+  ["0:00–0:04","Hook",`Timestamp, desk, the mission for the day.`],
+  ["0:04–0:12","Curiosity",`"By eleven I'll have found something the company would rather I hadn't."`],
+  ["0:12–0:50","Value",`Four timestamped blocks: adversarial testing, logging, the engineering handoff, and the re-test.`],
+  ["0:50–0:58","Interrupt",`One found failure shown on screen in full.`],
+  ["0:58–1:20","Payoff",`What the role is actually graded on, and the boring part nobody mentions.`],
+  ["1:20–1:30","CTA",`Open the floor to questions.`]
+ ],
+ talk:[
+  `Anchor with a timestamp; every subsequent one is a small promise.`,
+  `Tease the eleven o'clock find without describing it.`,
+  `Show one adversarial test being written in real time.`,
+  `Show the failure log format: what happened, severity, reproduction steps.`,
+  `Show the handoff message to an engineer.`,
+  `Reveal the find from the tease.`,
+  `Be honest that most of the day is documentation, and that the documentation is the deliverable.`
+ ],
+ vis:[
+  `Timestamp overlay persistent in one corner all the way through.`,
+  `Alternate between desk shots and screen recordings every eight to ten seconds.`,
+  `The found failure gets a full-screen still with the reproduction steps highlighted.`,
+  `Close on the log at end of day, scrolled to show volume.`
+ ],
+ osd:["9:41","Break it before they do","Severity, not opinion","The documentation IS the job"],
+ ints:[
+  `Every timestamp is an interrupt — use five and change the shot at each one.`,
+  `0:50 — the tease from 0:04 is paid off; hold the still longer than any other frame.`,
+  `1:10 — drop the music for the honest part.`
+ ],
+ emo:`Curiosity about a job the viewer can't picture. Job titles in this market are abstract, and watching a real day converts a title into something someone can imagine themselves doing — which is the precondition for applying.`,
+ pay:`A concrete picture of the role, the format of the deliverable, and an honest account of the dull majority of it. The eleven o'clock tease resolves.`,
+ cta:`"Ask me anything about this role — I'll answer the specific ones in the comments."`,
+ ctaFor:"Comments + follows",
+ risk:`The middle blocks drift into routine and lose people around forty seconds. Fix it by restating the eleven o'clock tease at the midpoint, so an unresolved promise is always sitting in front of the viewer.`
+},
+{
+ n:19, title:"Fifteen minutes a day for ninety days",
+ plat:"LinkedIn", len:"60–90s", style:"Educational / transformation", driver:"Transformation",
+ score:8, scoreWhy:`The accountability CTA generates a comment thread you can revive months later, which extends the video's life well past its first week. It scores mid-range because ninety-day promises are a familiar format and need the specificity to stand out.`,
+ hook:`Hold up a paper log with visible daily entries. "Fifteen minutes a day. Ninety days. This is the log that turns someone who uses AI into someone who gets paid for it — and it's three lines a day."`,
+ idea:`A daily practice loop: one real task automated or attempted, one written evaluation of the output, one note on what failed. The compounding artifact is the portfolio, so the practice and the credential are the same activity.`,
+ beats:[
+  ["0:00–0:04","Hook",`The physical log, the numbers, the three-line constraint.`],
+  ["0:04–0:14","Curiosity",`"The reason this works isn't discipline. It's that the log itself is the thing you send people."`],
+  ["0:14–0:45","Value",`The three daily lines, and what day one actually looks like.`],
+  ["0:45–0:52","Interrupt",`Cut to the log at day thirty versus day ninety, side by side.`],
+  ["0:52–1:15","Payoff",`The three milestones: a working automation, a graded comparison, and a published write-up.`],
+  ["1:15–1:25","CTA",`Accountability comment.`]
+ ],
+ talk:[
+  `Show the physical log first. Paper reads as real in a way a screenshot doesn't.`,
+  `Name the mechanism: practice and portfolio are the same artifact.`,
+  `Line one: the task you attempted.`,
+  `Line two: how you judged the output, in one sentence with a criterion.`,
+  `Line three: what failed and what you'd change.`,
+  `Show the volume difference between day thirty and day ninety.`,
+  `Give the three milestones and ask for a public commitment.`
+ ],
+ vis:[
+  `Real paper log, handheld, pages turning — texture and imperfection sell the honesty.`,
+  `Three-line format as a clean built graphic once, then back to the paper.`,
+  `Side-by-side of two pages at 0:45, thin versus dense.`,
+  `Close on a blank page with today's date written on camera.`
+ ],
+ osd:["3 lines a day","Practice = portfolio","Day 30 / Day 90","Write today's date"],
+ ints:[
+  `0:45 — the two pages side by side; a physical before-and-after outperforms any animated chart here.`,
+  `1:00 — switch to a text card for the milestones.`,
+  `1:20 — write on camera; live handwriting is unusual enough to hold the final beat.`
+ ],
+ emo:`Transformation, made small. The credible version of a ninety-day promise is a tiny daily unit, and three lines is small enough that the viewer can't argue themselves out of it.`,
+ pay:`A three-line daily format, visual proof of what ninety days accumulates to, and three concrete milestones. The hook's log is fully explained.`,
+ cta:`"Comment DAY 1 with today's date. I'm going to come back to this thread in thirty days and ask."`,
+ ctaFor:"Comments + follows",
+ risk:`The ninety-day frame invites scepticism from anyone who's seen a hundred similar promises. Fix it by keeping every claim about the artifact rather than the outcome — the log exists at day ninety whether or not anyone hires you.`
+},
+{
+ n:20, title:"Reading the payout dashboard out loud",
+ plat:"YouTube Shorts", len:"15–30s", style:"Proof / transparency", driver:"Curiosity + proof",
+ score:9, scoreWhy:`Unedited financial proof is the scarcest content in this niche and it travels on credibility alone. Including a bad month is what makes it defensible and, counter-intuitively, what makes it perform.`,
+ hook:`A payout dashboard already open, client names blurred, figures visible. "I'm going to read this out loud. No edit, no cuts, including the month I made almost nothing."`,
+ idea:`Direct evidence: what the work actually paid across several months, including a dry spell. Everything else on this board makes claims; this one is the receipt they refer back to.`,
+ beats:[
+  ["0:00–0:04","Hook",`The dashboard, the promise of no editing, the admission upfront.`],
+  ["0:04–0:09","Curiosity",`"Two of these months are good. One of them is the reason I still tell people to keep their job."`],
+  ["0:09–0:18","Value",`Read the months in order, with hours next to each.`],
+  ["0:18–0:21","Interrupt",`Stop on the bad month. Silence.`],
+  ["0:21–0:27","Payoff",`Why it happened — project volume, not performance — and what you changed after.`],
+  ["0:27–0:30","CTA",`Follow, framed around what comes next.`]
+ ],
+ talk:[
+  `State the terms before reading anything: uncut, and the bad month included.`,
+  `Read each month with the hours beside it — the rate matters more than the total.`,
+  `Stop dead on the low month.`,
+  `Explain the cause honestly: volume on these platforms fluctuates and isn't a verdict on you.`,
+  `Say what you changed — a second platform, or a different work category.`,
+  `Close by pointing at the next thing you'll show.`
+ ],
+ vis:[
+  `One continuous screen recording with no cuts; cutting would destroy the entire premise.`,
+  `Blur only client and account identifiers, and say on camera that's what's blurred.`,
+  `Cursor tracks each figure as it's read.`,
+  `Freeze on the low month with the number enlarged.`
+ ],
+ osd:["Uncut","Hours matter more than totals","The bad month","Volume ≠ verdict"],
+ ints:[
+  `0:18 — a full stop and silence on the low number; in a fifteen-to-thirty-second video, one held silence is the entire interrupt budget.`,
+  `0:21 — the figure enlarges on screen.`,
+  `0:27 — cursor moves for the first time since the freeze.`
+ ],
+ emo:`Curiosity satisfied by proof. Everything else on this board is a claim; this is evidence, and evidence is what converts a viewer who has watched five of your videos into someone who follows.`,
+ pay:`Real figures with hours attached, including a bad month explained. The hook promised an unedited read and delivers exactly that.`,
+ cta:`"Follow if you want the next one — I'll read the month after this when it closes."`,
+ ctaFor:"Follows",
+ risk:`Contractual confidentiality is the real risk, not retention. Check your agreements before filming, blur client identifiers, and never reconstruct a dashboard you no longer have access to — a fabricated screenshot ends the account.`
+}
+];
+
+const TOP5 = [
+ {n:4, why:`It reaches the largest untapped group in the audience — people with a real profession who assumed AI work required engineering — and the reveal genuinely surprises them. The CTA asks every single viewer to type their own job title, which is the highest-yield comment mechanic available in this niche, and each reply gives you a legitimate reason to respond with something useful.`},
+ {n:7, why:`The strongest hook on the board. A real rejection email creates an information gap the viewer cannot close by guessing, so the first three seconds do almost all the retention work. The three-part fix is the kind of thing people rewatch to copy, which pushes repeat viewing higher than anything else here.`},
+ {n:12, why:`It converts watching into participating. The silent beat after the question is the cheapest retention device in short form, and the viewer who attempts an answer privately is already halfway to typing it. It also positions you as someone who knows what interviews actually test, which is what earns the follow.`},
+ {n:3, why:`It proves its point visually before you say a word, which is exactly how Reels travel. Two applicant counts side by side need no translation, no trust, and no context, and the save prompt is honest rather than pleading — these listings genuinely do get crowded.`},
+ {n:2, why:`The best LinkedIn-native concept here. It argues with a title people wear as identity, which drives comments from both agreement and objection, and the offer to rewrite headlines in the comments turns one video into a week of visible activity under your name.`}
+];
+
+const wrap = (t)=>document.createTextNode(t);
+function el(tag, cls, txt){const e=document.createElement(tag); if(cls)e.className=cls; if(txt!=null)e.textContent=txt; return e;}
+function byN(n){return C.find(c=>c.n===n);}
+function pad(n){return String(n).padStart(2,"0");}
+function platShort(p){return p==="YouTube Shorts"?"YT Shorts":p==="Instagram Reels"?"IG Reels":p;}
+
+/* first five */
+const five = document.getElementById("five");
+TOP5.forEach((t,i)=>{
+  const c = byN(t.n);
+  const row = el("div","pick");
+  row.appendChild(el("div","rank",String(i+1)));
+  const b = el("div");
+  b.appendChild(el("h3",null,c.title));
+  b.appendChild(el("p",null,t.why));
+  b.appendChild(el("div","ref",`Concept ${pad(c.n)} · ${platShort(c.plat)} · ${c.len} · scores ${c.score}/10`));
+  row.appendChild(b);
+  five.appendChild(row);
+});
+
+/* index */
+const idx = document.getElementById("idx");
+C.forEach(c=>{
+  const tr = el("tr");
+  const td0 = el("td","num",pad(c.n));
+  const td1 = el("td","ttl");
+  const a = el("a",null,c.title); a.href = "#c"+c.n; td1.appendChild(a);
+  const td2 = el("td",null,platShort(c.plat));
+  const td3 = el("td",null,c.len);
+  const td4 = el("td",null,c.style);
+  const td5 = el("td",null,c.driver);
+  const td6 = el("td","sc",c.score+"/10");
+  [td0,td1,td2,td3,td4,td5,td6].forEach(t=>tr.appendChild(t));
+  idx.appendChild(tr);
+});
+
+/* cards */
+const NAMES = ["Hook","Curiosity","Value","Interrupt","Payoff","CTA"];
+const cards = document.getElementById("cards");
+
+function block(label, node){
+  const b = el("div","block");
+  b.appendChild(el("h4",null,label));
+  b.appendChild(node);
+  return b;
+}
+function list(items, ordered){
+  const l = el(ordered?"ol":"ul");
+  items.forEach(i=>l.appendChild(el("li",null,i)));
+  return l;
+}
+
+C.forEach(c=>{
+  const card = el("article","card");
+  card.id = "c"+c.n;
+  card.dataset.plat = c.plat;
+
+  const top = el("div","card-top");
+  const idline = el("div","idline");
+  idline.appendChild(el("span","idnum","CONCEPT "+pad(c.n)));
+  idline.appendChild(el("span","chip plat",platShort(c.plat)));
+  idline.appendChild(el("span","chip",c.len));
+  idline.appendChild(el("span","chip",c.style));
+  top.appendChild(idline);
+  top.appendChild(el("h3",null,c.title));
+  const hb = el("div","hookbox");
+  hb.appendChild(el("span","lbl","Scroll-stopping hook · first 1–3 seconds"));
+  hb.appendChild(wrap(c.hook));
+  top.appendChild(hb);
+  card.appendChild(top);
+
+  const body = el("div","body");
+
+  const rail = el("div","rail");
+  const r1 = el("div","item");
+  r1.appendChild(el("span","eyebrow","Emotional driver"));
+  r1.appendChild(el("span",null,c.driver));
+  rail.appendChild(r1);
+  const r2 = el("div","item");
+  r2.appendChild(el("span","eyebrow","CTA aimed at"));
+  r2.appendChild(el("span",null,c.ctaFor));
+  rail.appendChild(r2);
+  const r3 = el("div","item");
+  r3.appendChild(el("span","eyebrow","Virality potential"));
+  const sc = el("div","score"); sc.appendChild(wrap(String(c.score))); sc.appendChild(el("small",null,"/10"));
+  r3.appendChild(sc);
+  const meter = el("div","meter");
+  for(let i=1;i<=10;i++){ meter.appendChild(el("i", i<=c.score?"on":"")); }
+  r3.appendChild(meter);
+  rail.appendChild(r3);
+  body.appendChild(rail);
+
+  const content = el("div","content");
+
+  content.appendChild(block("Core idea", el("p",null,c.idea)));
+
+  const strip = el("div","strip");
+  c.beats.forEach((b,i)=>{
+    const beat = el("div","beat"+(i===4?" hot":""));
+    beat.appendChild(el("div","tc",b[0]));
+    beat.appendChild(el("div","nm",NAMES[i]));
+    beat.appendChild(el("div","tx",b[2]));
+    strip.appendChild(beat);
+  });
+  content.appendChild(block("Retention structure", strip));
+
+  content.appendChild(block("Script outline — in this order", list(c.talk, true)));
+  content.appendChild(block("Visual direction", list(c.vis, false)));
+
+  const osd = el("div","osd");
+  c.osd.forEach(t=>osd.appendChild(el("span",null,t)));
+  content.appendChild(block("On-screen text", osd));
+
+  content.appendChild(block("Pattern interrupts", list(c.ints, false)));
+  content.appendChild(block("Why this driver works", el("p",null,c.emo)));
+
+  const pay = block("Payoff", el("p",null,c.pay));
+  pay.classList.add("payoff");
+  content.appendChild(pay);
+
+  const ctaB = el("div","block");
+  ctaB.appendChild(el("h4",null,"Engagement CTA"));
+  ctaB.appendChild(el("p","cta-line",c.cta));
+  content.appendChild(ctaB);
+
+  const rk = block("Retention risk — and the fix", el("p",null,c.risk));
+  rk.classList.add("risk");
+  content.appendChild(rk);
+
+  content.appendChild(block("Why it scores "+c.score, el("p",null,c.scoreWhy)));
+
+  body.appendChild(content);
+  card.appendChild(body);
+  cards.appendChild(card);
+});
+
+/* filter */
+const btns = [...document.querySelectorAll(".filters button")];
+btns.forEach(b=>b.addEventListener("click",()=>{
+  const f = b.dataset.f;
+  btns.forEach(x=>x.setAttribute("aria-pressed", String(x===b)));
+  [...cards.children].forEach(card=>{
+    card.style.display = (f==="all" || card.dataset.plat===f) ? "" : "none";
+  });
+}));
+</script>
